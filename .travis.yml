@@ -1,0 +1,15 @@
+language: generic
+
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build -t dejoker95/react-test-app -f ./frontend/Dockerfile.dev ./frontend
+
+script:
+  - docker run -e CI=ture dejoker95/react-test-app npm run test
+
+after_success:
+  - docker build -t dejoker95/docker-frontend ./frontend
